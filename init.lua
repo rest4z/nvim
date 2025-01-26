@@ -7,14 +7,11 @@ vim.api.nvim_set_keymap('n', '<S-CR>', 'O<Esc>', { noremap = true, silent = true
 -- Leader key mappings
 vim.api.nvim_set_keymap('n', '<leader>n', ':Neotree toggle<CR>', { noremap = true, silent = true })  -- Toggle NeoTree
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })  -- Save file
-vim.api.nvim_set_keymap('n', '<leader>q', ':wq<CR>', { noremap = true, silent = true })  -- Save file
 
 --vim.clipboard
-vim.api.nvim_set_keymap('x', 'x', '"_x', { noremap = true })
-vim.api.nvim_set_keymap('n', 'x', '"_x', { noremap = true })
 --sync OS and vim clipboard
 vim.schedule(function()
-	vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = 'unnamedplus'
 end)
 vim.opt.tabstop = 4
 -- Save undo history
@@ -40,11 +37,11 @@ vim.opt.scrolloff = 10
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
-	desc = 'Highlight when yanking (copying) text',
-	group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 --line numbers
@@ -52,52 +49,52 @@ vim.wo.number = true
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-	local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-	if vim.v.shell_error ~= 0 then
-		error('Error cloning lazy.nvim:\n' .. out)
-	end
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
+  end
 end 
 vim.opt.rtp:prepend(lazypath)
 
 
 require('lazy').setup({
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-		}
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		config = function()
-			require('nvim-treesitter.configs').setup({
-				ensure_installed = {"go", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline"},
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        ensure_installed = {"go", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline"},
 
-				auto_install = true,
+        auto_install = true,
 
-				highlight = {
-					enable = true,
-				},
-			})
-		end,
-	},
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{
+        highlight = {
+          enable = true,
+        },
+      })
+    end,
+  },
+{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+{
 
-		--autocomplete
+	--autocomplete
 		'neovim/nvim-lspconfig',
 		dependencies = 'hrsh7th/cmp-nvim-lsp',
 		config = function()
 
 			local lspconfig_defaults = require('lspconfig').util.default_config
 			lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-			'force',
-			lspconfig_defaults.capabilities,
-			require('cmp_nvim_lsp').default_capabilities()
+				'force',
+				lspconfig_defaults.capabilities,
+				require('cmp_nvim_lsp').default_capabilities()
 			)
 
 			local lspconfig = require('lspconfig')
@@ -186,33 +183,33 @@ require('lazy').setup({
 			})
 		end,
 	},
-	{
-		"williamboman/mason.nvim"
-	}
+{
+    "williamboman/mason.nvim"
+}
 
 })
 
 vim.cmd.colorscheme("catppuccin-mocha")
 
 require("neo-tree").setup({
-	event_handlers = {
+event_handlers = {
 
-		{
-			event = "file_open_requested",
-			handler = function()
-				-- auto close
-				require("neo-tree.command").execute({ action = "close" })
-			end
-		},
+  {
+    event = "file_open_requested",
+    handler = function()
+      -- auto close
+      require("neo-tree.command").execute({ action = "close" })
+    end
+  },
 
-	}
+}
 })
 
 require("mason").setup()
 
 vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
 	desc = 'Set indentation settings for curly brace languages',
-	pattern = { '*.c','*.cc','*.cpp','*.h','*.hh','*.hpp','*.lua','*.js','*.php','*.sh','.y','.yy','.l','.ll' },
+	pattern = { '*.c','*.cc','*.cpp','*.h','*.hh','*.hpp','*.lua','*.js','*.php','*.sh','.y','.yy','.l','.ll','*.java' },
 	callback = function()
 		vim.opt.expandtab = false
 		vim.opt.cindent = true
