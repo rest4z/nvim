@@ -7,6 +7,16 @@ vim.api.nvim_set_keymap('n', '<S-CR>', 'O<Esc>', { noremap = true, silent = true
 -- Leader key mappings
 vim.api.nvim_set_keymap('n', '<leader>n', ':Neotree toggle<CR>', { noremap = true, silent = true })  -- Toggle NeoTree
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })  -- Save file
+vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })  -- Quit file
+vim.api.nvim_set_keymap('n', '<leader>e', ':wq<CR>', { noremap = true, silent = true })  -- save and quit file
+
+vim.api.nvim_set_keymap('n', '<leader>v', ':vsplit<CR>', { noremap = true, silent = true })  -- vertical split
+vim.api.nvim_set_keymap('n', '<leader>h', ':split<CR>', { noremap = true, silent = true })  -- horizontal split
+
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })  -- move to left split
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })  -- move to bottom split
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })  -- move to top split
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })  -- move to right split
 
 --vim.clipboard
 --sync OS and vim clipboard
@@ -31,8 +41,6 @@ vim.opt.autowriteall = true
 vim.opt.undolevels = 5000
 vim.opt.undofile = true
 vim.opt.autoread = true
-
--- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
 -- Highlight when yanking (copying) text
