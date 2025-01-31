@@ -18,9 +18,10 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })  -- move to top split
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })  -- move to right split
 
-vim.api.nvim_set_keymap('n', '<leader>a', 'gg0vG$y', { noremap = true, silent = true })  -- copy all file
+vim.api.nvim_set_keymap('n', '<leader>a', 'gg0vG$', { noremap = true, silent = true })  -- copy all file
 
---vim.clipboard
+vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true }) -- Delete without yanking
+vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true }) -- Paste without overwriting register--vim.clipboard
 --sync OS and vim clipboard
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
