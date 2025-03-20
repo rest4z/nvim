@@ -21,6 +21,7 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '<leader>a', 'gg0vG$', { noremap = true, silent = true })  -- copy all file
 
 vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true }) -- Delete without yanking
+vim.keymap.set("x", "x", '"_x', { noremap = true, silent = true }) -- Delete without yanking
 vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true }) -- Paste without overwriting register--vim.clipboard
 --sync OS and vim clipboard
 vim.schedule(function()
@@ -36,6 +37,9 @@ vim.opt.smartcase = true
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+
+-- Hide mouse cursor
+vim.opt.mouse = ""
 
 vim.opt.backup = false
 vim.opt.swapfile = false
@@ -94,6 +98,10 @@ require('lazy').setup({
     end,
   },
 { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+{ "nyoom-engineering/oxocarbon.nvim", priority = 1000 },
+{ "rebelot/kanagawa.nvim", priority = 1000 },
+{ "navarasu/onedark.nvim", priority = 1000 },
+{ "sho-87/kanagawa-paper.nvim", priority = 1000 },
 {
 
 	--autocomplete
@@ -200,7 +208,9 @@ require('lazy').setup({
 
 })
 
-vim.cmd.colorscheme("catppuccin-mocha")
+-- :colorscheme 'theme' to preview !
+-- vim.cmd.colorscheme("catppuccin-mocha")
+vim.cmd.colorscheme("kanagawa-wave")
 
 require("neo-tree").setup({
 event_handlers = {
