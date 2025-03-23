@@ -23,6 +23,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', 'gg0vG$', { noremap = true, silent = t
 vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true }) -- Delete without yanking
 vim.keymap.set("x", "x", '"_x', { noremap = true, silent = true }) -- Delete without yanking
 vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true }) -- Paste without overwriting register--vim.clipboard
+
 --sync OS and vim clipboard
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
@@ -202,9 +203,16 @@ require('lazy').setup({
 			})
 		end,
 	},
-{
-    "williamboman/mason.nvim"
-}
+	{
+		"williamboman/mason.nvim"
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require('telescope').setup{}
+		end
+	}
 
 })
 
@@ -238,3 +246,11 @@ vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
 		vim.opt.shiftwidth = 4
 	end,
 })
+
+-- telescope key bindings / shortcut
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
